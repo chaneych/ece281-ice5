@@ -95,8 +95,27 @@ begin
 	-- CONCURRENT STATEMENTS ------------------------------------------------------------------------------
 	
 	-- Next State Logic
-  
+  process(f_Q, i_up_down, i_stop)
+  begin
+    f_Q_next <= f_Q;
+        if (i_up_down = '1') then
+            case f_Q is
+                when s_floor1 => f_Q_next <= s_floor2;
+                when s_floor2 => f_Q_next <= s_floor3;
+                when s_floor3 => f_Q_next <= s_floor4;
+                when s_floor4 => f_Q_next <= s_floor4;
+            end case;
+        else
+            case f_Q is
+                when s_floor1 => f_Q_next <= s_floor1;
+                when s_floor2 => f_Q_next <= s_floor1;
+                when s_floor3 => f_Q_next <= s_floor2;
+                when s_floor4 => f_Q_next <= s_floor3;
+            end case;
+        end if;
+  end process
 	-- Output logic
+	
 
 	-------------------------------------------------------------------------------------------------------
 	
